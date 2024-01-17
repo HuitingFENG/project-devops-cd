@@ -8,5 +8,3 @@
   - Jonathan EL BAZ
   - Camille FOUR
   - Huiting FENG
-
-### TESTTESTTEST
