@@ -1,6 +1,6 @@
 # project-devops-cd
-# M2 SE1 promo 2024
-
+  - M2 SE1 promo 2024
+  - GrpLog(x)
 
 ## Contributors: 
   - Van Alenn PHAM
@@ -8,3 +8,4 @@
   - Jonathan EL BAZ
   - Camille FOUR
   - Huiting FENG
+
