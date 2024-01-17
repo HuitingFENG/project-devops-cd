@@ -45,7 +45,7 @@ func aboutMe(response http.ResponseWriter, r *http.Request) {
 func request1() {
 	http.HandleFunc("/", homePage)
 	http.HandleFunc("/aboutme", aboutMe)
-	http.HandleFunc("/devops-project", whoAmI)
+	http.HandleFunc("/project-devops-cd", whoAmI)
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
