@@ -23,7 +23,21 @@
 ### Part One: Build and deploy an application using Docker / Kubernetes and Jenkins pipeline. 
 1. Diagram of solution, target architecture and tool chain suggested
 
+- Docker: A platform for developing, shipping, and running applications inside containers.
+- Kubernetes (Minikube): Minikube runs a single-node Kubernetes cluster on our computer for users looking to try out Kubernetes or develop with it day-to-day.
+- Helm: a package manager for Kubernetes, simplifying deployment of apps and services.
+- Prometheus and Grafana: Prometheus is an open-source monitoring system with a dimensional data model, and Grafana is an open-source, feature-rich metrics dashboard and graph editor Graphite, Elasticsearch, OpenTSDB, Prometheus, and InfluxDB.
+
 2. Customize and deploy the application on local docker engine
+- go to the /webapi folder, write a 'Dockerfile' for this application
+- build the docker image: 
+
+  docker build -t project-devops-cd .
+- run the container locally:
+
+  docker run -p 8080:8080 project-devops-cd
+- list the running containers and we know that there are two running containers:
+![](/images/1.png)
 
 3. Deploy the application on Kubernetes (minikube) cluster
   
@@ -36,6 +50,9 @@
 
 ### Part Two: Monitoring and incident management for containerized application.
 1. Access to Granafa web UI and configure a data source with the deployed Prometheus service URL
+  - username: admin
+  - password: 8tpAxdyYFIjiS8YbbV2RuLDKLnyPFAoDHzq4t3Gk
+
 
 2. Configure Alert Manager component and setup Alerts
 
