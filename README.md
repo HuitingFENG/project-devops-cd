@@ -35,18 +35,18 @@
 
 
 ### Part Two: Monitoring and incident management for containerized application.
-2. 1. Access to Granafa web UI and configure a data source with the deployed Prometheus service URL
+1. Access to Granafa web UI and configure a data source with the deployed Prometheus service URL
 
-2. 2. Configure Alert Manager component and setup Alerts
+2. Configure Alert Manager component and setup Alerts
 
 
-2. 3. Configure another alert and send it by email to teacher
+3. Configure another alert and send it by email to teacher
 
 
 ### Part Three: Logs Management
-3. 1. Install the grafana/loki-stack chart from Grafana Official Helm Chart
+1. Install the grafana/loki-stack chart from Grafana Official Helm Chart
 
-3. 2. Configure the Loki datasource and create a query on the Grafana application
+2. Configure the Loki datasource and create a query on the Grafana application
 
 
 
