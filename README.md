@@ -21,16 +21,16 @@
 
 ## Steps
 ### Part One: Build and deploy an application using Docker / Kubernetes and Jenkins pipeline. 
-1. 1. Diagram of solution, target architecture and tool chain suggested
+1. Diagram of solution, target architecture and tool chain suggested
 
-1. 2. Customize and deploy the application on local docker engine
+2. Customize and deploy the application on local docker engine
 
-1. 3. Deploy the application on Kubernetes (minikube) cluster
-1. 3. 1. In the development environment
+3. Deploy the application on Kubernetes (minikube) cluster
+3. 1. In the development environment
 
-1. 3. 2. In the production environment
+3. 2. In the production environment
 
-1. 4. Build the docker image with buildpack utility and compare it with dockerfile option
+4. Build the docker image with buildpack utility and compare it with dockerfile option
 
 
 ### Part Two: Monitoring and incident management for containerized application.
