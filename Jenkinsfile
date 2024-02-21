@@ -68,41 +68,25 @@ pipeline {
             }
         }
     }
-    // stage('Validate Development Deployment') {
-    //     steps {
-    //         script {
-    //             def serviceUrl = sh(script: "minikube service my-go-app-service-dev --url", returnStdout: true).trim()
-    //             // def expectedMessage = sh(script: "curl -s ${serviceUrl}/whoami", returnStdout: true).trim()
-    //             // echo "Expected message is: ${expectedMessage}"
-    //             // def pipelineExpectedMessage = '{"Name":"project-devops-cd","Title":"DevOps and Continous Deployment Team","State":"Efrei Paris"}'
-    //             // if (expectedMessage == pipelineExpectedMessage) {
-    //             //     echo "Messages match. Deployment validation successful."
-    //             // } else {
-    //             //     error "Messages do not match. Deployment validation failed."
-    //             // }
-    //             echo "Service URL is: ${serviceUrl}"
-    //             sh 'curl -f ${serviceUrl}/whoami'
-    //         }
-    //     }
-    // }
-  
     stage('Validate Development Deployment') {
         steps {
             script {
-                // Retrieve the ClusterIP of the service
-                def serviceClusterIP = sh(script: "kubectl get svc my-go-app-service-dev -o=jsonpath='{.spec.clusterIP}'", returnStdout: true).trim()
-                
-                // Construct the service URL using the ClusterIP
-                def serviceUrl = "http://${serviceClusterIP}:80" 
-                
-                // Output the service URL for debugging purposes
+                def serviceUrl = sh(script: "minikube service my-go-app-service-dev --url", returnStdout: true).trim()
+                // def expectedMessage = sh(script: "curl -s ${serviceUrl}/whoami", returnStdout: true).trim()
+                // echo "Expected message is: ${expectedMessage}"
+                // def pipelineExpectedMessage = '{"Name":"project-devops-cd","Title":"DevOps and Continous Deployment Team","State":"Efrei Paris"}'
+                // if (expectedMessage == pipelineExpectedMessage) {
+                //     echo "Messages match. Deployment validation successful."
+                // } else {
+                //     error "Messages do not match. Deployment validation failed."
+                // }
                 echo "Service URL is: ${serviceUrl}"
-
-                // Perform a test against the service URL
-                sh "curl -f ${serviceUrl}/whoami"
+                sh 'open -a Terminal'
+                sh 'curl -f ${serviceUrl}/whoami'
             }
         }
     }
+  
     
 
     stage('Deploy to Production in Kubernetes') {
@@ -111,6 +95,7 @@ pipeline {
         }
         steps {
             script {
+                sh 'open -a Terminal'
                 sh 'kubectl apply -f K8sProd.yaml'
             }
         }
