@@ -83,7 +83,6 @@ pipeline {
         }
         steps {
             script {
-                sh 'open -a Terminal'
                 sh 'kubectl apply -f K8sProd.yaml'
             }
         }
