@@ -1,0 +1,11 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'go-application'
+    static_configs:
+      - targets: ['my-go-app-service-dev:9090']
+
+rule_files:
+  - "alert.rules.yml"
+
