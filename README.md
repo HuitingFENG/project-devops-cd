@@ -44,7 +44,11 @@ docker ps
 ```
 and we know that there are two running containers:
 ![](/images/1.png)
-- or go to check the application in a web browser (http://localhost:8080/) 
+- or go to check the application in a web browser (http://localhost:8080/) or
+```
+curl http://localhost:8080/
+```
+and the same message will be displayed on the terminal and on the web browser
 ![](/images/2.png)
 
 
