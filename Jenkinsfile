@@ -71,7 +71,7 @@ pipeline {
     stage('Validate Development Deployment') {
         steps {
             script {
-                def serviceUrl = sh(script: "minikube service my-go-app-service-dev --url", returnStdout: true).trim()
+                //def serviceUrl = sh(script: "minikube service my-go-app-service-dev --url", returnStdout: true).trim()
                 // def expectedMessage = sh(script: "curl -s ${serviceUrl}/whoami", returnStdout: true).trim()
                 // echo "Expected message is: ${expectedMessage}"
                 // def pipelineExpectedMessage = '{"Name":"project-devops-cd","Title":"DevOps and Continous Deployment Team","State":"Efrei Paris"}'
@@ -80,15 +80,14 @@ pipeline {
                 // } else {
                 //     error "Messages do not match. Deployment validation failed."
                 // }
+                def minikubeIp = '192.168.49.2' 
+                def nodePort = '30007'
+                def serviceUrl = "http://${minikubeIp}:${nodePort}/whoami"
                 echo "Service URL is: ${serviceUrl}"
-                sh 'open -a Terminal'
                 sh 'curl -f ${serviceUrl}/whoami'
             }
         }
     }
-  
-    
-
     stage('Deploy to Production in Kubernetes') {
         when {
             expression { return currentBuild.result == null || currentBuild.result == 'SUCCESS' }

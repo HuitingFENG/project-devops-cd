@@ -34,6 +34,7 @@ metadata:
     app: my-go-app
     environment: development
 spec:
+  type: NodePort
   selector:
     app: my-go-app
     environment: development
@@ -41,3 +42,4 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 8080
+      nodePort: 30007  # minikube ip: 192.168.49.2
