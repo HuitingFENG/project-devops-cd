@@ -105,6 +105,17 @@ curl http://localhost:9090/job/project-devops-cd/lastBuild/consoleText --user ad
 
 
 4. Build the docker image with buildpack utility and compare it with dockerfile option
+- install the pack tool on MacOS:
+```
+brew install buildpacks/tap/pack
+```
+- build an image with pack
+```
+pack build my-go-app --path . --builder heroku/buildpacks:20
+```
+- verify the output from terminal
+![](/images/7.png)
+
 
 
 ### Part Two: Monitoring and incident management for containerized application.
