@@ -26,9 +26,9 @@
 2. Customize and deploy the application on local docker engine
 
 3. Deploy the application on Kubernetes (minikube) cluster
-3.1. In the development environment
+  3.1. In the development environment
 
-3.2. In the production environment
+  3.2. In the production environment
 
 4. Build the docker image with buildpack utility and compare it with dockerfile option
 
