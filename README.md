@@ -65,11 +65,35 @@ the result shows that our jenkins instance is accessible on port 9090 for the we
 ```
 docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 ```
+99dbc65928a3418eb9261cef89fd0b72
 - choose to install the recommended plugins, skip to continue as admin and choose to not configure the url of jenkins
 - create a new job (type is pipeline) and configure source control using this url of github project on the configuration page
-- add build step directly using the pipeline script on Jenkins
+- start a Jenkins agent via Java Web Start (JNLP) and make the agent machine can reach the Jenkins master server at 'localhost:9090', but we need to ensure that the agent is running on the same machine as the Jenkins server.
+```
+curl -sO http://localhost:9090/jnlpJars/agent.jar
+java -jar agent.jar -url http://localhost:9090/ -secret bb18ff68dc081ffa2943a8f8a2e28164345d1ad47d9214a59ef1f363d2d51e1b -name "jenkins-slave" -workDir "/tmp"
+```
+```
+docker run -p 9090:8080 -p 50000:50000 jenkins/jenkins:lts
+```
+63997f3750a64fc5aa8bb3c928fe5709
+- go to Jenkins web interface and get Jenkins API token : 11143b75437776f2eaa7ffb4cdbaffdb8d
+- add build step directly using the pipeline script on Jenkins or in our case use a Jenkinsfile on local machine(cf. /webapi/Jenkinsfile)
+- we will combine the "curl" command and a "Jenkinsfile" to provide a automated, and version-controlled way to manage our CI/CD pipeline.
+- after create and write pipeline script on the "Jenkinsfile"
+- use "curl" to trigger builds
+```
+curl -X POST http://localhost:9090/job/project-devops-cd/build --user admin:11143b75437776f2eaa7ffb4cdbaffdb8d  
+```
+- display the output of build on our local machine's terminal
+```
+curl http://localhost:9090/job/project-devops-cd/lastBuild/consoleText --user admin:11143b75437776f2eaa7ffb4cdbaffdb8d 
+``` 
+- scroll down to the end of result and verify the output on terminal
+![](/images/4.png)
+- go to the web browser (http://localhost:9090/job/project-devops-cd/) and check the output of build to compare results from terminal
+![](/images/5.png)
 
-- save and run
 
 
 3. Deploy the application on Kubernetes (minikube) cluster
