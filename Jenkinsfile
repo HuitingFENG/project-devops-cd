@@ -61,15 +61,50 @@ pipeline {
             }
         }
     }
-    stage('Validate Development Deployment') {
+    stage('Check deployed dev service in Kubernetes') {
         steps {
             script {
-                def serviceUrl = sh(script: "minikube service my-go-app-service-dev --url", returnStdout: true).trim()
-                echo "Service URL is: ${serviceUrl}"
-                sh 'curl -f ${serviceUrl}/whoami'
+                sh 'kubectl get pods,deployments,svc'
             }
         }
     }
+    // stage('Validate Development Deployment') {
+    //     steps {
+    //         script {
+    //             def serviceUrl = sh(script: "minikube service my-go-app-service-dev --url", returnStdout: true).trim()
+    //             // def expectedMessage = sh(script: "curl -s ${serviceUrl}/whoami", returnStdout: true).trim()
+    //             // echo "Expected message is: ${expectedMessage}"
+    //             // def pipelineExpectedMessage = '{"Name":"project-devops-cd","Title":"DevOps and Continous Deployment Team","State":"Efrei Paris"}'
+    //             // if (expectedMessage == pipelineExpectedMessage) {
+    //             //     echo "Messages match. Deployment validation successful."
+    //             // } else {
+    //             //     error "Messages do not match. Deployment validation failed."
+    //             // }
+    //             echo "Service URL is: ${serviceUrl}"
+    //             sh 'curl -f ${serviceUrl}/whoami'
+    //         }
+    //     }
+    // }
+    stages {
+        stage('Validate Development Deployment') {
+            steps {
+                script {
+                    // Retrieve the ClusterIP of the service
+                    def serviceClusterIP = sh(script: "kubectl get svc my-go-app-service-dev -o=jsonpath='{.spec.clusterIP}'", returnStdout: true).trim()
+                    
+                    // Construct the service URL using the ClusterIP
+                    def serviceUrl = "http://${serviceClusterIP}:80" // Assuming your service listens on port 80
+                    
+                    // Output the service URL for debugging purposes
+                    echo "Service URL is: ${serviceUrl}"
+
+                    // Perform a test against the service URL
+                    sh "curl -f ${serviceUrl}/whoami"
+                }
+            }
+        }
+    }
+
     stage('Deploy to Production in Kubernetes') {
         when {
             expression { return currentBuild.result == null || currentBuild.result == 'SUCCESS' }
