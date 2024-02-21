@@ -119,9 +119,36 @@ Buildpacks abstract away the need to write a Dockerfile, automatically detecting
 
 
 ### Part Two: Monitoring and incident management for containerized application.
-1. Access to Granafa web UI and configure a data source with the deployed Prometheus service URL
-  - username: admin
-  - password: 8tpAxdyYFIjiS8YbbV2RuLDKLnyPFAoDHzq4t3Gk
+1. Access to Grafana web UI and configure a data source with the deployed Prometheus service URL
+- install those tools on MacOS
+```
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+```
+```
+helm install prometheus prometheus-community/prometheus
+```
+```
+helm install grafana grafana/grafana
+kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+```
+```
+kubectl port-forward svc/grafana 3000:80
+```
+- get the credentials to access to Grafana web UI:
+```
+username: admin
+password: 8tpAxdyYFIjiS8YbbV2RuLDKLnyPFAoDHzq4t3Gk
+```
+- Check the web browser and login to Grafana
+![](/images/9.png)
+- Add Data Source by using the url of prometheus-kube-prometheus-prometheus: 
+```
+http://prometheus-kube-prometheus-prometheus:9090
+```
+![](/images/10.png)
+![](/images/11.png)
 
 
 2. Configure Alert Manager component and setup Alerts
