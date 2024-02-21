@@ -46,7 +46,7 @@ docker ps
 ```
 and we know that there are two running containers:
 ![](/images/1.png)
-- or go to check the application in a web browser or use command lines:
+- go to check the application in a web browser or use command lines:
 ```
 curl http://localhost:8080/
 ```
@@ -54,6 +54,22 @@ curl http://localhost:8080/
 curl http://localhost:8080/whoami/
 ```
 ![](/images/2.png)
+- 
+- use Jenkins on Docker to set up Jenkins (MacOS)
+```
+docker run -d -p 9090:8080 -p 50000:50000 --name jenkins -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
+```
+![](/images/3.png)
+the result shows that our jenkins instance is accessible on port 9090 for the web interface and port 50000 for agent connections. We can then access the Jenkins web interface (http://localhost:9090) by navigating to in our web browser.
+- find the initial admin password for our jenkins instance running in a docker container:
+```
+docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+```
+- choose to install the recommended plugins, skip to continue as admin and choose to not configure the url of jenkins
+- create a new job (type is pipeline) and configure source control using this url of github project on the configuration page
+- add build step directly using the pipeline script on Jenkins
+
+- save and run
 
 
 3. Deploy the application on Kubernetes (minikube) cluster
