@@ -73,26 +73,7 @@ pipeline {
     stage('Validate Development Deployment') {
         steps {
             script {
-                sh 'kubectl apply -f K8sTest.yaml'
-                sh 'kubectl wait --for=condition=complete job/curl-test-job --timeout=60s'
-
-                // sh 'kubectl run tmp-shell --rm -i --tty --image=curlimages/curl -- /bin/sh'
-                // sh 'curl http://my-go-app-service-dev:80/whoami'
-                
-                //def serviceUrl = sh(script: "minikube service my-go-app-service-dev --url", returnStdout: true).trim()
-                // def expectedMessage = sh(script: "curl -s ${serviceUrl}/whoami", returnStdout: true).trim()
-                // echo "Expected message is: ${expectedMessage}"
-                // def pipelineExpectedMessage = '{"Name":"project-devops-cd","Title":"DevOps and Continous Deployment Team","State":"Efrei Paris"}'
-                // if (expectedMessage == pipelineExpectedMessage) {
-                //     echo "Messages match. Deployment validation successful."
-                // } else {
-                //     error "Messages do not match. Deployment validation failed."
-                // }
-                // def minikubeIp = '192.168.49.2' 
-                // def nodePort = '30007'
-                // def serviceUrl = "http://${minikubeIp}:${nodePort}/whoami"
-                // echo "Service URL is: ${serviceUrl}"
-                // sh 'curl -f ${serviceUrl}/whoami'
+                sh 'kubectl rollout status deployment/my-go-app-dev -n development --timeout=60s'
             }
         }
     }
@@ -108,13 +89,4 @@ pipeline {
         }
     }
   }
-
-    post {
-        always {
-            // Clean up the test job to maintain a tidy environment
-            script {
-                sh 'kubectl delete job curl-test-job --ignore-not-found'
-            }
-        }
-    }
 }
