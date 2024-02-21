@@ -44,6 +44,9 @@ docker ps
 ```
 and we know that there are two running containers:
 ![](/images/1.png)
+- or go to check the application in a web browser (http://localhost:8080/) 
+![](/images/2.png)
+
 
 3. Deploy the application on Kubernetes (minikube) cluster
   
