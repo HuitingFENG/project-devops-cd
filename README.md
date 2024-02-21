@@ -97,8 +97,12 @@ curl http://localhost:9090/job/project-devops-cd/lastBuild/consoleText --user ad
 
 
 3. Deploy the application on Kubernetes (minikube) cluster in the development environment and in the production environment
-- update the pipeline by adding new steps: load image into 
-- verify the output of builds
+- create 2 yaml files for 2 different environments: K8sDev.yaml and K8sProd.yaml
+- update the pipeline by adding new steps: load image to Minikube, Deploy to Development in Kubernetes, Check deployed dev service in Kubernetes, Validate Development Deployment, Deploy to Production in kubernetes
+- verify the output of builds on the web interface
+![](/images/6.png)
+
+
 
 4. Build the docker image with buildpack utility and compare it with dockerfile option
 

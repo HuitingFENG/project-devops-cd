@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: curl-test-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: curl-container
+        image: curlimages/curl
+        command: ["curl", "-s", "http://my-go-app-service-dev:80/whoami"]
+      restartPolicy: Never
+  backoffLimit: 4
