@@ -24,6 +24,8 @@ spec:
         - containerPort: 8080
         imagePullPolicy: Never
 
+
+
 ---
 
 apiVersion: v1
@@ -34,7 +36,7 @@ metadata:
     app: my-go-app
     environment: development
 spec:
-  type: NodePort
+  # type: NodePort
   selector:
     app: my-go-app
     environment: development
@@ -42,4 +44,24 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 8080
-      nodePort: 30007  # minikube ip: 192.168.49.2
+      # nodePort: 30007  # minikube ip: 192.168.49.2
+
+
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-go-app-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /whoami
+        pathType: Prefix
+        backend:
+          service
+            name: my-go-app-service-dev
+            port:
+              number: 80

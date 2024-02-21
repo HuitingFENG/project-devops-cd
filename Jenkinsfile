@@ -57,6 +57,7 @@ pipeline {
     stage('Deploy to Development in Kubernetes') {
         steps {
             script {
+                sh 'minikube addons enable ingress'
                 sh 'kubectl apply -f K8sDev.yaml'
             }
         }
@@ -65,12 +66,16 @@ pipeline {
         steps {
             script {
                 sh 'kubectl get pods,deployments,svc'
+                
             }
         }
     }
     stage('Validate Development Deployment') {
         steps {
             script {
+                sh 'kubectl run tmp-shell --rm -i --tty --image=curlimages/curl -- /bin/sh'
+                sh 'curl http://my-go-app-service-dev:80/whoami'
+                
                 //def serviceUrl = sh(script: "minikube service my-go-app-service-dev --url", returnStdout: true).trim()
                 // def expectedMessage = sh(script: "curl -s ${serviceUrl}/whoami", returnStdout: true).trim()
                 // echo "Expected message is: ${expectedMessage}"
@@ -80,11 +85,11 @@ pipeline {
                 // } else {
                 //     error "Messages do not match. Deployment validation failed."
                 // }
-                def minikubeIp = '192.168.49.2' 
-                def nodePort = '30007'
-                def serviceUrl = "http://${minikubeIp}:${nodePort}/whoami"
-                echo "Service URL is: ${serviceUrl}"
-                sh 'curl -f ${serviceUrl}/whoami'
+                // def minikubeIp = '192.168.49.2' 
+                // def nodePort = '30007'
+                // def serviceUrl = "http://${minikubeIp}:${nodePort}/whoami"
+                // echo "Service URL is: ${serviceUrl}"
+                // sh 'curl -f ${serviceUrl}/whoami'
             }
         }
     }
