@@ -61,7 +61,7 @@ spec:
       - path: /whoami
         pathType: Prefix
         backend:
-          service
+          service:
             name: my-go-app-service-dev
             port:
               number: 80

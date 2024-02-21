@@ -96,11 +96,9 @@ curl http://localhost:9090/job/project-devops-cd/lastBuild/consoleText --user ad
 
 
 
-3. Deploy the application on Kubernetes (minikube) cluster
-  
-  - 3.1. In the development environment
-
-  - 3.2. In the production environment
+3. Deploy the application on Kubernetes (minikube) cluster in the development environment and in the production environment
+- update the pipeline by adding new steps: load image into 
+- verify the output of builds
 
 4. Build the docker image with buildpack utility and compare it with dockerfile option
 
