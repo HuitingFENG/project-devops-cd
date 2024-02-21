@@ -85,25 +85,25 @@ pipeline {
     //         }
     //     }
     // }
-    stages {
-        stage('Validate Development Deployment') {
-            steps {
-                script {
-                    // Retrieve the ClusterIP of the service
-                    def serviceClusterIP = sh(script: "kubectl get svc my-go-app-service-dev -o=jsonpath='{.spec.clusterIP}'", returnStdout: true).trim()
-                    
-                    // Construct the service URL using the ClusterIP
-                    def serviceUrl = "http://${serviceClusterIP}:80" // Assuming your service listens on port 80
-                    
-                    // Output the service URL for debugging purposes
-                    echo "Service URL is: ${serviceUrl}"
+  
+    stage('Validate Development Deployment') {
+        steps {
+            script {
+                // Retrieve the ClusterIP of the service
+                def serviceClusterIP = sh(script: "kubectl get svc my-go-app-service-dev -o=jsonpath='{.spec.clusterIP}'", returnStdout: true).trim()
+                
+                // Construct the service URL using the ClusterIP
+                def serviceUrl = "http://${serviceClusterIP}:80" 
+                
+                // Output the service URL for debugging purposes
+                echo "Service URL is: ${serviceUrl}"
 
-                    // Perform a test against the service URL
-                    sh "curl -f ${serviceUrl}/whoami"
-                }
+                // Perform a test against the service URL
+                sh "curl -f ${serviceUrl}/whoami"
             }
         }
     }
+    
 
     stage('Deploy to Production in Kubernetes') {
         when {
