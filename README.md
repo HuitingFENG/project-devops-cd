@@ -95,13 +95,12 @@ curl http://localhost:9090/job/project-devops-cd/lastBuild/consoleText --user ad
 ![](/images/5.png)
 
 
-
 3. Deploy the application on Kubernetes (minikube) cluster in the development environment and in the production environment
 - create 2 yaml files for 2 different environments: K8sDev.yaml and K8sProd.yaml
 - update the pipeline by adding new steps: load image to Minikube, Deploy to Development in Kubernetes, Check deployed dev service in Kubernetes, Validate Development Deployment, Deploy to Production in kubernetes
 - verify the output of builds on the web interface
 ![](/images/6.png)
-
+![](/images/8.png)
 
 
 4. Build the docker image with buildpack utility and compare it with dockerfile option
@@ -115,7 +114,8 @@ pack build my-go-app --path . --builder heroku/buildpacks:20
 ```
 - verify the output from terminal
 ![](/images/7.png)
-
+- observations:
+Buildpacks abstract away the need to write a Dockerfile, automatically detecting the application's dependencies and runtime. It can simplify the build process for developers who are not familiar with Docker's usage. Buildpacks are maintained by the community or organizations (ex: Heroku), so others can help fix security vulnerabilities and keep updating.
 
 
 ### Part Two: Monitoring and incident management for containerized application.
