@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-go-app-prod
+  labels:
+    app: my-go-app
+    environment: production
+spec:
+  replicas: 3  
+  selector:
+    matchLabels:
+      app: my-go-app
+      environment: production
+  template:
+    metadata:
+      labels:
+        app: my-go-app
+        environment: production
+    spec:
+      containers:
+      - name: my-go-app
+        image: huitingfeng/project-devops-cd:latest
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: Never

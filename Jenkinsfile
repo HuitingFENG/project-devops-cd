@@ -38,11 +38,45 @@ pipeline {
         }
       }
     }
+    stage('Load Image to Minikube') {
+        steps {
+            script {
+                sh 'eval $(minikube -p minikube docker-env)'
+                sh "minikube image load ${DOCKER_IMAGE}"
+            }
+        }
+    }
     stage('Deploy Docker Image') {
         steps {
             script {
                 sh "docker rm -f ${MY_GO_APP} || true"
                 sh "docker run -d --name ${MY_GO_APP} -p 8081:8080 ${DOCKER_IMAGE}"
+            }
+        }
+    }
+    stage('Deploy to Development in Kubernetes') {
+        steps {
+            script {
+                sh 'kubectl apply -f k8sDev.yaml'
+            }
+        }
+    }
+    stage('Validate Development Deployment') {
+        steps {
+            script {
+                def serviceUrl = sh(script: "minikube service my-go-app-service --url", returnStdout: true).trim()
+                echo "Service URL is: ${serviceUrl}"
+                sh 'curl -f ${serviceUrl}/whoami'
+            }
+        }
+    }
+    stage('Deploy to Production in Kubernetes') {
+        when {
+            expression { return currentBuild.result == null || currentBuild.result == 'SUCCESS' }
+        }
+        steps {
+            script {
+                sh 'kubectl apply -f k8sProd.yaml'
             }
         }
     }
