@@ -32,7 +32,7 @@
 - go to the /webapi folder, write a 'Dockerfile' for this application
 - build the docker image: 
 
-  docker build -t project-devops-cd .
+    docker build -t project-devops-cd .
 - run the container locally:
 
   docker run -p 8080:8080 project-devops-cd
