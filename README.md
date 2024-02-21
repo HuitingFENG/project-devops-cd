@@ -32,13 +32,17 @@
 - go to the /webapi folder, write a 'Dockerfile' for this application
 - build the docker image: 
 ```
-  docker build -t project-devops-cd .
+docker build -t project-devops-cd .
 ```
 - run the container locally: 
 ```
-  docker run -p 8080:8080 project-devops-cd
+docker run -p 8080:8080 project-devops-cd
 ```
-- list the running containers and we know that there are two running containers:
+- list the running containers:
+```
+docker ps
+```
+and we know that there are two running containers:
 ![](/images/1.png)
 
 3. Deploy the application on Kubernetes (minikube) cluster
