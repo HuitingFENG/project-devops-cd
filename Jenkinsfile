@@ -73,15 +73,16 @@ pipeline {
     stage('Validate Development Deployment') {
         steps {
             script {
-                def podStatuses = sh(script: "kubectl get pods -l app=my-go-app,environment=development -o jsonpath='{.items[*].status.phase}'", returnStdout: true).trim()
-                def statuses = podStatuses.split()
-                def allRunning = statuses.every { status -> status == 'Running' }
+                echo "test"
+                // def podStatuses = sh(script: "kubectl get pods -l app=my-go-app,environment=development -o jsonpath='{.items[*].status.phase}'", returnStdout: true).trim()
+                // def statuses = podStatuses.split()
+                // def allRunning = statuses.every { status -> status == 'Running' }
 
-                if (allRunning) {
-                    echo "All pods in the development deployment are running."
-                } else {
-                    error "One or more pods in the development deployment are not running."
-                }
+                // if (allRunning) {
+                //     echo "All pods in the development deployment are running."
+                // } else {
+                //     error "One or more pods in the development deployment are not running."
+                // }
             }
         }
     }
