@@ -30,8 +30,13 @@
 
 2. Customize and deploy the application on local docker engine
 - go to the /webapi folder, write a 'Dockerfile' for this application
-- build the docker image: docker build -t project-devops-cd .
-- run the container locally: docker run -p 8080:8080 project-devops-cd
+- build the docker image: 
+
+  docker build -t project-devops-cd .
+- run the container locally: 
+###
+
+  docker run -p 8080:8080 project-devops-cd
 - list the running containers and we know that there are two running containers:
 ![](/images/1.png)
 
