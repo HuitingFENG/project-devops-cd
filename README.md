@@ -29,6 +29,8 @@
 - Prometheus and Grafana: Prometheus is an open-source monitoring system with a dimensional data model, and Grafana is an open-source, feature-rich metrics dashboard and graph editor Graphite, Elasticsearch, OpenTSDB, Prometheus, and InfluxDB.
 
 2. Customize and deploy the application on local docker engine
+- go to the /webapi/main.go file, do some modifications so that the /whoami endpoint displays our team's name
+![](/images/0.png)
 - go to the /webapi folder, write a 'Dockerfile' for this application
 - build the docker image: 
 ```
@@ -44,11 +46,13 @@ docker ps
 ```
 and we know that there are two running containers:
 ![](/images/1.png)
-- or go to check the application in a web browser (http://localhost:8080/) or
+- or go to check the application in a web browser or use command lines:
 ```
 curl http://localhost:8080/
 ```
-and the same message will be displayed on the terminal and on the web browser
+```
+curl http://localhost:8080/whoami/
+```
 ![](/images/2.png)
 
 

@@ -19,9 +19,10 @@ func main() {
 
 func whoAmI(response http.ResponseWriter, r *http.Request) {
 	who := []whoami{
-		whoami{Name: "Efrei Paris",
-			Title: "DevOps and Continous Deployment",
-			State: "FR",
+		whoami{
+			Name: "project-devops-cd",
+			Title: "DevOps and Continous Deployment Team",
+			State: "Efrei Paris",
 		},
 	}
 
@@ -45,7 +46,7 @@ func aboutMe(response http.ResponseWriter, r *http.Request) {
 func request1() {
 	http.HandleFunc("/", homePage)
 	http.HandleFunc("/aboutme", aboutMe)
-	http.HandleFunc("/project-devops-cd", whoAmI)
+	http.HandleFunc("/whoami", whoAmI) // modify to customize the endpoint so as to display the team's information
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
