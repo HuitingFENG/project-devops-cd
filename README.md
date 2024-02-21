@@ -85,7 +85,7 @@ docker run -p 9090:8080 -p 50000:50000 jenkins/jenkins:lts
 ```
 curl -X POST http://localhost:9090/job/project-devops-cd/build --user admin:11143b75437776f2eaa7ffb4cdbaffdb8d  
 ```
-- display the output of build on our local machine's terminal
+- wait a moment, manually check the build status in the Jenkins UI to see if completed and then display the output of build on our local machine's terminal
 ```
 curl http://localhost:9090/job/project-devops-cd/lastBuild/consoleText --user admin:11143b75437776f2eaa7ffb4cdbaffdb8d 
 ``` 

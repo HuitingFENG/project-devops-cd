@@ -57,14 +57,14 @@ pipeline {
     stage('Deploy to Development in Kubernetes') {
         steps {
             script {
-                sh 'kubectl apply -f k8sDev.yaml'
+                sh 'kubectl apply -f K8sDev.yaml'
             }
         }
     }
     stage('Validate Development Deployment') {
         steps {
             script {
-                def serviceUrl = sh(script: "minikube service my-go-app-service --url", returnStdout: true).trim()
+                def serviceUrl = sh(script: "minikube service my-go-app-service-dev --url", returnStdout: true).trim()
                 echo "Service URL is: ${serviceUrl}"
                 sh 'curl -f ${serviceUrl}/whoami'
             }
@@ -76,7 +76,7 @@ pipeline {
         }
         steps {
             script {
-                sh 'kubectl apply -f k8sProd.yaml'
+                sh 'kubectl apply -f K8sProd.yaml'
             }
         }
     }

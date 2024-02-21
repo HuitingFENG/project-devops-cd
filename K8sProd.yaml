@@ -23,3 +23,21 @@ spec:
         ports:
         - containerPort: 8080
         imagePullPolicy: Never
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-go-app-service-prod
+  labels:
+    app: my-go-app
+    environment: production
+spec:
+  selector:
+    app: my-go-app
+    environment: production
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
