@@ -35,6 +35,9 @@ metadata:
   labels:
     app: my-go-app
     environment: development
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "80"
 spec:
   # type: NodePort
   selector:

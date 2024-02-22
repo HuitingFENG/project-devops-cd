@@ -2,9 +2,22 @@ global:
   scrape_interval: 15s
 
 scrape_configs:
-  - job_name: 'go-application'
-    static_configs:
-      - targets: ['my-go-app-service-dev:9090']
+  # - job_name: 'go-application'
+  #   static_configs:
+  #     - targets: ['my-go-app-service-dev:9090']
+  - job_name: 'kubernetes-services'
+    kubernetes_sd_configs:
+      - role: service
+    relabel_configs:
+      - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
+        action: keep
+        regex: true
+      - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_port]
+        action: replace
+        target_label: __address__
+        regex: (.+)
+        replacement: $1:80
+
 
 rule_files:
   - "/etc/prometheus/rules/alert.rules.yaml"

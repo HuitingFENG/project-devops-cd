@@ -33,6 +33,9 @@ metadata:
   labels:
     app: my-go-app
     environment: production
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "80"
 spec:
   selector:
     app: my-go-app

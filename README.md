@@ -155,8 +155,13 @@ http://prometheus-kube-prometheus-prometheus:9090
 - create the Alert Rule:
 - configure Alertmanager to send emails:
 - reload prometheus and Alertmanagerconfiguration:
-- test the configuration:
+- test the setup of prometheus by checking if all our alerting rules are loaded and in the expected state (pending, firing, or inactive)
 ![](/images/12.png)
+![](/images/13.png)
+The test alert is triggered. This test alert is created as a condition that always fires. Also, it will ensure the alerting pipeline works from end to end.
+- test alertmanager integration by checking the alertmanager UI to see if alerts are being received and routed to the correct receivers.
+![](/images/14.png)
+![](/images/15.png)
 
 3. Configure another alert and send it by email to teacher
 
