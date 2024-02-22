@@ -152,6 +152,10 @@ http://prometheus-kube-prometheus-prometheus:9090
 
 
 2. Configure Alert Manager component and setup Alerts
+- create the Alert Rule:
+- configure Alertmanager to send emails:
+- reload prometheus and Alertmanagerconfiguration:
+- test the configuration:
 
 
 3. Configure another alert and send it by email to teacher

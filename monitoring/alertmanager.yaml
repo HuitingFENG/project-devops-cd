@@ -1,0 +1,26 @@
+global:
+  resolve_timeout: 5m
+
+route:
+  group_by: ['alertname', 'severity']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 12h
+  receiver: 'email'
+  routes:
+    - match:
+        severity: 'warning'
+      receiver: 'email'
+
+receivers:
+- name: 'email'
+  email_configs:
+  - to: 'huiting.feng@efrei.net'  # 'abdoul-aziz.zakari-madougou@intervenants.efrei.net'
+    send_resolved: true
+    from: 'efreiparisteamprojectdevopscd@gmail.com'
+    smarthost: 'smtp.gmail.com:587'
+    auth_username: 'efreiparisteamprojectdevopscd@gmail.com'
+    auth_identity: 'efreiparisteamprojectdevopscd@gmail.com'
+    auth_password: 'efreiparisteamprojectdevopscd5'
+    # subject: '[Team project-devOps-cd] Alert: {{ .CommonAnnotations.summary }}'
+    html: '<h2>Alert from Team project-devOps-cd</h2><p>{{ .CommonAnnotations.description }}</p>'
