@@ -7,7 +7,8 @@ scrape_configs:
       - targets: ['my-go-app-service-dev:9090']
 
 rule_files:
-  - "/etc/prometheus/alert.rules.yaml"
+  - "/etc/prometheus/rules/alert.rules.yaml"
+
 
 alerting:
   alertmanagers:

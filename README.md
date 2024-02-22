@@ -156,7 +156,7 @@ http://prometheus-kube-prometheus-prometheus:9090
 - configure Alertmanager to send emails:
 - reload prometheus and Alertmanagerconfiguration:
 - test the configuration:
-
+![](/images/12.png)
 
 3. Configure another alert and send it by email to teacher
 
