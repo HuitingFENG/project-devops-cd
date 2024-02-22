@@ -173,6 +173,9 @@ password: efreiparisteamprojectdevopscd5
 ![](/images/16.png)
 ![](/images/17.png)
 ![](/images/18.png)
+- check if our personal school email account can receive that email about the Test Alert
+![](/images/19.png)
+![](/images/20.png)
 
 
 ### Part Three: Logs Management
