@@ -25,6 +25,7 @@
 ## Steps
 ### Part One: Build and deploy an application using Docker / Kubernetes and Jenkins pipeline. 
 1. Diagram of solution, target architecture and tool chain suggested
+
 ![](/images/30.png)
 
 - Source Repository: The Go application's source code is hosted on a GitHub repository. Every developer git push to the same GitHub repository.
@@ -50,7 +51,9 @@
 
 2. Customize and deploy the application on local docker engine
 - go to the /webapi/main.go file, do some modifications so that the /whoami endpoint displays our team's name
+
 ![](/images/0.png)
+
 - go to the /webapi folder, write a 'Dockerfile' for this application
 - build the docker image: 
 ```
@@ -65,7 +68,9 @@ docker run -p 8080:8080 project-devops-cd
 docker ps
 ```
 and we know that there are two running containers:
+
 ![](/images/1.png)
+
 - go to check the application in a web browser or use command lines:
 ```
 curl http://localhost:8080/
@@ -73,13 +78,16 @@ curl http://localhost:8080/
 ```
 curl http://localhost:8080/whoami/
 ```
+
 ![](/images/2.png)
-- 
+
 - use Jenkins on Docker to set up Jenkins (MacOS)
 ```
 docker run -d -p 9090:8080 -p 50000:50000 --name jenkins -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
 ```
+
 ![](/images/3.png)
+
 the result shows that our jenkins instance is accessible on port 9090 for the web interface and port 50000 for agent connections. We can then access the Jenkins web interface (http://localhost:9090) by navigating to in our web browser.
 - find the initial admin password for our jenkins instance running in a docker container:
 ```
@@ -110,8 +118,11 @@ curl -X POST http://localhost:9090/job/project-devops-cd/build --user admin:1114
 curl http://localhost:9090/job/project-devops-cd/lastBuild/consoleText --user admin:11143b75437776f2eaa7ffb4cdbaffdb8d 
 ``` 
 - scroll down to the end of result and verify the output on terminal
+
 ![](/images/4.png)
+
 - go to the web browser (http://localhost:9090/job/project-devops-cd/) and check the output of build to compare results from terminal
+
 ![](/images/5.png)
 
 
@@ -119,7 +130,9 @@ curl http://localhost:9090/job/project-devops-cd/lastBuild/consoleText --user ad
 - create 2 yaml files for 2 different environments: K8sDev.yaml and K8sProd.yaml
 - update the pipeline by adding new steps: load image to Minikube, Deploy to Development in Kubernetes, Check deployed dev service in Kubernetes, Validate Development Deployment, Deploy to Production in kubernetes
 - verify the output of builds on the web interface
+
 ![](/images/6.png)
+
 ![](/images/8.png)
 
 
@@ -133,7 +146,9 @@ brew install buildpacks/tap/pack
 pack build my-go-app --path . --builder heroku/buildpacks:20
 ```
 - verify the output from terminal
+
 ![](/images/7.png)
+
 - observations:
 Buildpacks abstract away the need to write a Dockerfile, automatically detecting the application's dependencies and runtime. It can simplify the build process for developers who are not familiar with Docker's usage. Buildpacks are maintained by the community or organizations (ex: Heroku), so others can help fix security vulnerabilities and keep updating.
 
@@ -162,12 +177,16 @@ username: admin
 password: 8tpAxdyYFIjiS8YbbV2RuLDKLnyPFAoDHzq4t3Gk
 ```
 - Check the web browser and login to Grafana
+
 ![](/images/9.png)
+
 - Add Data Source by using the url of prometheus-kube-prometheus-prometheus: 
 ```
 http://prometheus-kube-prometheus-prometheus:9090
 ```
+
 ![](/images/10.png)
+
 ![](/images/11.png)
 
 
@@ -176,11 +195,16 @@ http://prometheus-kube-prometheus-prometheus:9090
 - configure Alertmanager to send emails:
 - reload prometheus and Alertmanagerconfiguration:
 - test the setup of prometheus by checking if all our alerting rules are loaded and in the expected state (pending, firing, or inactive)
+
 ![](/images/12.png)
+
 ![](/images/13.png)
+
 The test alert is triggered. This test alert is created as a condition that always fires. Also, it will ensure the alerting pipeline works from end to end.
 - test alertmanager integration by checking the alertmanager UI to see if alerts are being received and routed to the correct receivers.
+
 ![](/images/14.png)
+
 ![](/images/15.png)
 
 3. Configure another alert and send it by email to teacher
@@ -190,13 +214,21 @@ email: efreiparisteamprojectdevopscd@gmail.com
 password: efreiparisteamprojectdevopscd5
 ```
 - configure gmail account security and generate a password for application Alertmanager
+
 ![](/images/16.png)
+
 ![](/images/17.png)
+
 ![](/images/18.png)
+
 - check if our personal school email account can receive that email about the Test Alert
+
 ![](/images/19.png)
+
 ![](/images/20.png)
+
 - check the current status of Kubernetes Cluster
+
 ![](/images/21.png)
 
 
@@ -212,12 +244,15 @@ helm install loki-stack grafana/loki-stack \
   --set promtail.enabled=true
 ```
 The result shows that Loki and Promtail are installed into the "logging" namespace, with Grafana installation disabled. Promtail is used to collect and send logs to Loki.
+
 ![](/images/22.png)
 
 
 2. Configure the Loki datasource and create a query on the Grafana application
 - configure a datasource called loki via the Grafana web UI 
+
 ![](/images/23.png)
+
 - configure another datasource called loki-datasource via the terminal
 ```
 curl -X POST -H "Content-Type: application/json" -d '{
@@ -228,9 +263,13 @@ curl -X POST -H "Content-Type: application/json" -d '{
   "basicAuth": false
 }' http://127.0.0.1:51532/api/datasources -u "admin:8tpAxdyYFIjiS8YbbV2RuLDKLnyPFAoDHzq4t3Gk"
 ```
+
 ![](/images/24.png)
+
 - check the creations of two Loki datasource on the Grafana web UI
+
 ![](/images/25.png)
+
 - create the query on the terminal
 ```
 curl -X POST \
@@ -266,11 +305,17 @@ curl -X POST \
         "overwrite": false
       }'
 ```
+
 ![](/images/26.png)
+
 - check the result of query on the Grafana web UI
+
 ![](/images/27.png)
+
 ![](/images/28.png)
+
 - check the current status of Kubernetes cluster
+
 ![](/images/29.png)
 
 
