@@ -1,6 +1,7 @@
 # project-devops-cd
   - M2 SE1 promo 2024
-  - GrpLog(x)
+  - Old team's name: GrpLog(x)
+  - New team's name: project-devops-cd
 
 ## Contributors: 
   - Van Alenn PHAM
