@@ -249,6 +249,9 @@ curl -X POST \
 ![](/images/26.png)
 - check the result of query on the Grafana web UI
 ![](/images/27.png)
+![](/images/28.png)
+- check the current status of Kubernetes cluster
+![](/images/29.png)
 
 
 ## References:
