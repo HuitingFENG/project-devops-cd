@@ -164,6 +164,15 @@ The test alert is triggered. This test alert is created as a condition that alwa
 ![](/images/15.png)
 
 3. Configure another alert and send it by email to teacher
+- create a gmail account with these credentials:
+```
+email: efreiparisteamprojectdevopscd@gmail.com
+password: efreiparisteamprojectdevopscd5
+```
+- configure gmail account security and generate a password for application Alertmanager
+![](/images/16.png)
+![](/images/17.png)
+![](/images/18.png)
 
 
 ### Part Three: Logs Management
