@@ -196,7 +196,59 @@ The result shows that Loki and Promtail are installed into the "logging" namespa
 
 
 2. Configure the Loki datasource and create a query on the Grafana application
-
+- configure a datasource called loki via the Grafana web UI 
+![](/images/23.png)
+- configure another datasource called loki-datasource via the terminal
+```
+curl -X POST -H "Content-Type: application/json" -d '{
+  "name": "loki-datasource",
+  "type": "loki",
+  "access": "proxy",
+  "url": "http://loki-stack.logging.svc.cluster.local:3100",
+  "basicAuth": false
+}' http://127.0.0.1:51532/api/datasources -u "admin:8tpAxdyYFIjiS8YbbV2RuLDKLnyPFAoDHzq4t3Gk"
+```
+![](/images/24.png)
+- check the creations of two Loki datasource on the Grafana web UI
+![](/images/25.png)
+- create the query on the terminal
+```
+curl -X POST \
+  http://127.0.0.1:51532/api/dashboards/db \ 
+  -H 'Content-Type: application/json' \
+  -u 'admin:8tpAxdyYFIjiS8YbbV2RuLDKLnyPFAoDHzq4t3Gk' \
+  -d '{
+        "dashboard": {
+          "title": "Production Errors",
+          "panels": [
+            {
+              "title": "Errors in Production",
+              "type": "logs",
+              "targets": [
+                {
+                  "expr": "{namespace=\"Production\"} |= \"error\"",
+                  "refId": "A",
+                  "datasource": "loki"
+                }
+              ],
+              "gridPos": {
+                "h": 8,
+                "w": 24,
+                "x": 0,
+                "y": 0
+              }
+            }
+          ],
+          "schemaVersion": 16,
+          "version": 0
+        },
+        "folderId": 0,
+        "overwrite": false
+      }'
+```
+![](/images/26.png)
+- check the result of query on the Grafana web UI
+![](/images/27.png)
 
 
 ## References:
