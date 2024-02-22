@@ -23,7 +23,7 @@
 ## Steps
 ### Part One: Build and deploy an application using Docker / Kubernetes and Jenkins pipeline. 
 1. Diagram of solution, target architecture and tool chain suggested
-
+![](/images/30.png)
 - Docker: A platform for developing, shipping, and running applications inside containers.
 - Kubernetes (Minikube): Minikube runs a single-node Kubernetes cluster on our computer for users looking to try out Kubernetes or develop with it day-to-day.
 - Helm: a package manager for Kubernetes, simplifying deployment of apps and services.
@@ -258,3 +258,4 @@ curl -X POST \
 ## References:
 
   https://github.com/efrei2023/ST2DCE-PRJ
+  https://lucid.app/lucidchart/dc50c6f8-d088-4708-9c72-c2e392e70a97/edit?viewport_loc=-1601%2C-641%2C2228%2C2266%2C0_0&invitationId=inv_c59f883b-4158-440a-89bd-ee0db85a8abd
