@@ -11,23 +11,42 @@
   - Huiting FENG
 
 ## Tools
-  - Docker
-  - Kubernetes
+  - Docker: A platform for developing, shipping, and running applications inside containers.
+  - Kubernetes (Minikube): Minikube runs a single-node Kubernetes cluster on our computer for users looking to try out Kubernetes or develop with it day-to-day.
   - Jenkins
   - Buildpack utility
   - Prometheus stack (Helm Chart)
   - Grafana (Helm Chart)
-  - grafana/loki-stack (Grafana Offical Helm Chart)
+  - grafana/loki-stack (Helm Chart)
+  - Helm: a package manager for Kubernetes, simplifying deployment of apps and services.
+  - Prometheus and Grafana: Prometheus is an open-source monitoring system with a dimensional data model, and Grafana is an open-source, feature-rich metrics dashboard and graph editor Graphite, Elasticsearch, OpenTSDB, Prometheus, and InfluxDB.
 
 
 ## Steps
 ### Part One: Build and deploy an application using Docker / Kubernetes and Jenkins pipeline. 
 1. Diagram of solution, target architecture and tool chain suggested
 ![](/images/30.png)
-- Docker: A platform for developing, shipping, and running applications inside containers.
-- Kubernetes (Minikube): Minikube runs a single-node Kubernetes cluster on our computer for users looking to try out Kubernetes or develop with it day-to-day.
-- Helm: a package manager for Kubernetes, simplifying deployment of apps and services.
-- Prometheus and Grafana: Prometheus is an open-source monitoring system with a dimensional data model, and Grafana is an open-source, feature-rich metrics dashboard and graph editor Graphite, Elasticsearch, OpenTSDB, Prometheus, and InfluxDB.
+
+- Source Repository: The Go application's source code is hosted on a GitHub repository. Every developer git push to the same GitHub repository.
+- Jenkins CI/CD Pipeline: Jenkins monitors the repository for changes and triggers a pipeline when changes are pushed.
+- Build Stage: Jenkins executes a build job which:
+  - Checks out the code from the repository.
+  - Builds the Docker image using Dockerfile.
+  - Push the built image to the Docker Hub.
+  - Load the built image directly into Minikube.
+  - Deploy the application into the Development environment and Production environment.
+- Development Deployment: 
+  - Jenkins deploys the application into a development environment in Kubernetes (Minikube).
+  - A validation test is performed.
+- Production Deployment: Jenkins deploys the application into the production environment, if the test is passed.
+- Monitoring with Prometheus and Grafana: Prometheus scrapes metrics from our application, and Grafana is used for visualization.
+  - Configure Prometheus as a datasource in Grafana.
+  - Set up alerts in Prometheus Alertmanager based on some conditions defined by us (2 alerts in our project).
+  - Configure alerts to be sent via email (severity of alerts is "warning").
+- Logging with Loki:
+  - Install Loki for log aggregation.
+  - Configure Loki as a datasource in Grafana.
+  - Create a query to display logs containing the word "error" in the production namespace.
 
 2. Customize and deploy the application on local docker engine
 - go to the /webapi/main.go file, do some modifications so that the /whoami endpoint displays our team's name
@@ -256,6 +275,9 @@ curl -X POST \
 
 
 ## References:
-
-  https://github.com/efrei2023/ST2DCE-PRJ
-  https://lucid.app/lucidchart/dc50c6f8-d088-4708-9c72-c2e392e70a97/edit?viewport_loc=-1601%2C-641%2C2228%2C2266%2C0_0&invitationId=inv_c59f883b-4158-440a-89bd-ee0db85a8abd
+```
+https://github.com/efrei2023/ST2DCE-PRJ
+```
+```
+https://lucid.app/lucidchart/dc50c6f8-d088-4708-9c72-c2e392e70a97/edit?viewport_loc=-1601%2C-641%2C2228%2C2266%2C0_0&invitationId=inv_c59f883b-4158-440a-89bd-ee0db85a8abd
+```
