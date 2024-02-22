@@ -176,10 +176,24 @@ password: efreiparisteamprojectdevopscd5
 - check if our personal school email account can receive that email about the Test Alert
 ![](/images/19.png)
 ![](/images/20.png)
+- check the current status of Kubernetes Cluster
+![](/images/21.png)
 
 
 ### Part Three: Logs Management
 1. Install the grafana/loki-stack chart from Grafana Official Helm Chart
+- add grafana helm repository (but it is already added)
+- install Loki Stack with Helm and create a new namespace called 'logging':
+```
+helm install loki-stack grafana/loki-stack \
+  --create-namespace \
+  --namespace=logging \
+  --set grafana.enabled=false \
+  --set promtail.enabled=true
+```
+The result shows that Loki and Promtail are installed into the "logging" namespace, with Grafana installation disabled. Promtail is used to collect and send logs to Loki.
+![](/images/22.png)
+
 
 2. Configure the Loki datasource and create a query on the Grafana application
 
